@@ -5,7 +5,7 @@ This plugin helps to automate backflushing by running a dedicated pressure profi
 
 ## Installation:
 
-1. save `DSx_Backflush.dsx` file to skins/DSx/DSx_Plugins
+1. save `DSx_backflush.dsx` file to skins/DSx/DSx_Plugins
 2. make sure, you have a Backflush.tcl profile (e.g. the one proposed [by Stéphane in Decent Diaspora customers forum](https://3.basecamp.com/3671212/buckets/7351439/messages/2940917783#__recording_2959508002)); file name matters, so make sure to spell it correctly
 3. restart DE1 app
 

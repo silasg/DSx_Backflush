@@ -1,0 +1,40 @@
+package provide DSx_backflush.dsx 1.0
+DSx_plugin_page_name DSx_Backflush
+
+proc DSx_BF_start {} {
+    
+    if {[file exists [homedir]/profiles/Backflush.tcl] != 1} {
+        borg toast [translate "Could not find Backflush.tcl"]
+    } else {
+        set ::DSx_BF_last_profile $::settings(profile_filename)
+        DSx_BF_load_profile "Backflush"
+        set ::DSx_BF_running 1
+        start_espresso 
+    }
+}
+
+proc DSx_BF_load_profile {profile_filename} {
+   #borg toast [translate "Loading profile ${profile_filename}"]
+   set fn "[homedir]/profiles/${profile_filename}.tcl"
+   load_settings_vars $fn
+   save_settings_to_de1
+}
+
+proc DSx_BF_finished {unused_old_state unused_new_state} {
+    if {$::DSx_BF_running == 1} {
+        DSx_BF_load_profile $::DSx_BF_last_profile
+        set ::DSx_BF_running {}
+    }
+
+}
+after idle {after 0 {register_state_change_handler Espresso Idle DSx_BF_finished}}
+
+proc DSx_BF_init_plugin args {
+    set ::DSx_BF_running {}
+    set ::DSx_BF_last_profile {}
+    
+    add_de1_variable "$::DSx_home_pages" 220 1150 -text "" -font [DSx_font font 10] -fill $::DSx_settings(font_colour) -anchor "center" -justify "center" -textvariable {Backflush}
+    add_de1_button "$::DSx_standby_pages" { DSx_BF_start }  50 1100 400 1200
+}
+
+lappend ::run_after_startup DSx_BF_init_plugin

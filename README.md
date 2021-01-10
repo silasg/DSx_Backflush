@@ -1,10 +1,12 @@
 # DSx_Backflush
-Backflush Plugin for the [https://www.diy.brakel.com.au/dsx/](famous DSx skin by Damian) on Decent Espresso machines (https://github.com/decentespresso and https://decentespresso.com/)
+Backflush Plugin for the [famous DSx skin by Damian](https://www.diy.brakel.com.au/dsx/) on Decent Espresso machines (https://github.com/decentespresso and https://decentespresso.com/)
+
+This plugin helps to automate backflushing by running a dedicated pressure profile and restoring all previous settings afterwards.
 
 ## Installation:
 
 1. save `DSx_Backflush.dsx` file to skins/DSx/DSx_Plugins
-2. make sure, you have a Backflush.tcl profile (e.g. the one proposed [https://3.basecamp.com/3671212/buckets/7351439/messages/2940917783#__recording_2959508002](by Stéphane in Decent Diaspora customers forum)). File name matters, so make sure to spell it correctly
+2. make sure, you have a Backflush.tcl profile (e.g. the one proposed [by Stéphane in Decent Diaspora customers forum](https://3.basecamp.com/3671212/buckets/7351439/messages/2940917783#__recording_2959508002)); file name matters, so make sure to spell it correctly
 3. restart DE1 app
 
 ## Usage:

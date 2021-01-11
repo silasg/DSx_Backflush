@@ -1,5 +1,5 @@
 # DSx_Backflush
-Backflush Plugin for the [famous DSx skin by Damian](https://www.diy.brakel.com.au/dsx/) on Decent Espresso machines (https://github.com/decentespresso and https://decentespresso.com/)
+Backflush Plugin for the [famous DSx skin by Damian](https://www.diy.brakel.com.au/dsx/) (v4.38 or later) on Decent Espresso machines (https://github.com/decentespresso and https://decentespresso.com/)
 
 This plugin helps to automate backflushing by running a dedicated pressure profile and restoring all previous settings afterwards.
 

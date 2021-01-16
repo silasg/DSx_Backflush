@@ -16,6 +16,10 @@ This plugin helps to automate backflushing by running a dedicated pressure profi
 3. on GHC press espresso button (non GHC machines should start directly but I could not test this)
 4. after the backflush is completed (or canceled) your former profile is reloaded
 
+## Configuration (optional):
+
+If you want to place the "Backflush" UI element in the top left corner of DSx main screen (for example because you have another plugin running, that needs the space just above the favourite cups) just change the first line from `set ::DSx_BF_alternative_ui 0` to `set ::DSx_BF_alternative_ui 1` and restart the DE1 app.
+
 ## Known issues:
 
 1. profile name color and fav cup indicators don't change when running backflush

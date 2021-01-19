@@ -1,8 +1,6 @@
 set ::DSx_BF_alternative_ui 0
 
-set version 1.2
-
-DSx_plugin_page_name DSx_Backflush
+set version 1.2.1
 
 proc DSx_BF_start {} { 
     if {[file exists [homedir]/profiles/Backflush.tcl] != 1} {

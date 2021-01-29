@@ -1,19 +1,26 @@
 set ::DSx_BF_alternative_ui 0
+set ::DSx_BF_label_idle "Backflush"
+set ::DSx_BF_label_active "Backflushing ..."
+set ::DSx_BF_profile_filename "Backflush"
 
-set version 1.2.1
+set version 1.3
 
 proc DSx_BF_start {} { 
-    if {[file exists [homedir]/profiles/Backflush.tcl] != 1} {
-        borg toast [translate "Could not find Backflush.tcl"]
+    if {[file exists [homedir]/profiles/${::DSx_BF_profile_filename}.tcl] != 1} {
+        borg toast [translate "Could not find ${::DSx_BF_profile_filename}.tcl"]
     } else {
-       
-        set ::settings(should_save_history) 0
-        
-        set ::DSx_BF_last_profile $::settings(profile_filename)    
-        DSx_BF_load_profile "Backflush"
-       
-        set ::DSx_BF_running 1
-        start_espresso 
+        if {$::DSx_BF_label == $::DSx_BF_label_active} {
+            DSx_BF_stop
+        } else {
+            set ::DSx_BF_label $::DSx_BF_label_active
+            
+            set ::settings(should_save_history) 0
+            
+            set ::DSx_BF_last_profile $::settings(profile_filename)    
+            DSx_BF_load_profile ${::DSx_BF_profile_filename}
+
+            start_espresso
+        }
     }
 }
 
@@ -21,21 +28,14 @@ proc DSx_BF_load_profile {profile_filename} {
    set fn "[homedir]/profiles/${profile_filename}.tcl"
    load_settings_vars $fn
    save_settings_to_de1
-   DSx_BF_update_view
-}
-
-proc DSx_BF_update_view {} {
-    profile_has_changed_set_colors
-    update_de1_explanation_chart
-    fill_profiles_listbox
-    LRv2_preview
-    DSx_graph_restore
-    refresh_DSx_temperature
 }
 
 proc DSx_BF_finished {unused_old_state unused_new_state} {
-    
-    if {$::DSx_BF_running == 1} {
+    DSx_BF_stop
+}
+
+proc DSx_BF_stop {} {
+    if {$::DSx_BF_label == $::DSx_BF_label_active } {
         set ::settings(should_save_history) $::DSx_BF_save_history 
         
         if { $::DSx_settings(pink_cup_indicator) == "." } { 
@@ -48,24 +48,25 @@ proc DSx_BF_finished {unused_old_state unused_new_state} {
             DSx_BF_load_profile $::DSx_BF_last_profile
         }
             
-        set ::DSx_BF_running {}
+        set ::DSx_BF_label $::DSx_BF_label_idle  
 
     }
-
 }
+
 after idle {after 0 {register_state_change_handler Espresso Idle DSx_BF_finished}}
 
 proc DSx_BF_init_plugin args {
-    set ::DSx_BF_running {}
     set ::DSx_BF_last_profile {}
-    set ::DSx_BF_save_history $::settings(should_save_history) 
+    set ::DSx_BF_save_history $::settings(should_save_history)
+    
+    set ::DSx_BF_label $::DSx_BF_label_idle 
     
     
     if {$::DSx_BF_alternative_ui == 1} {
-        add_de1_variable "$::DSx_home_pages" 220 150 -text "" -font [DSx_font font 10] -fill $::DSx_settings(font_colour) -anchor "center" -justify "center" -textvariable {Backflush}
+        add_de1_variable "$::DSx_home_pages" 100 150 -text "" -font [DSx_font font 10] -fill $::DSx_settings(font_colour) -anchor "nw" -justify "left" -textvariable { $::DSx_BF_label }
         add_de1_button "$::DSx_standby_pages" { DSx_BF_start }  50 100 400 200
     } else {
-        add_de1_variable "$::DSx_home_pages" 220 1150 -text "" -font [DSx_font font 10] -fill $::DSx_settings(font_colour) -anchor "center" -justify "center" -textvariable {Backflush}
+        add_de1_variable "$::DSx_home_pages" 100 1150 -text "" -font [DSx_font font 10] -fill $::DSx_settings(font_colour) -anchor "nw" -justify "left" -textvariable { $::DSx_BF_label }
         add_de1_button "$::DSx_standby_pages" { DSx_BF_start }  50 1100 400 1200
     }
 }

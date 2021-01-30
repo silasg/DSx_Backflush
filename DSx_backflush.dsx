@@ -2,6 +2,7 @@ set ::DSx_BF_alternative_ui 0
 set ::DSx_BF_label_idle "Backflush"
 set ::DSx_BF_label_active "Backflushing ..."
 set ::DSx_BF_profile_filename "Backflush"
+set ::DSx_BF_bypass_shot_history 1
 
 set version 1.3
 
@@ -14,7 +15,9 @@ proc DSx_BF_start {} {
         } else {
             set ::DSx_BF_label $::DSx_BF_label_active
             
-            set ::settings(should_save_history) 0
+            if { $::DSx_BF_bypass_shot_history == 1 } {
+                set ::settings(should_save_history) 0
+            }
             
             set ::DSx_BF_last_profile $::settings(profile_filename)    
             DSx_BF_load_profile ${::DSx_BF_profile_filename}

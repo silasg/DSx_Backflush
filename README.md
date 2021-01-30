@@ -6,7 +6,7 @@ This plugin helps to automate backflushing by running a dedicated pressure profi
 ## Installation:
 
 1. save `DSx_backflush.dsx` file to skins/DSx/DSx_Plugins
-2. make sure, you have a Backflush.tcl profile (e.g. the one proposed [by Stéphane in Decent Diaspora customers forum](https://3.basecamp.com/3671212/buckets/7351439/messages/2940917783#__recording_2959508002)); file name matters, so make sure to spell it correctly
+2. make sure, you have a Backflush.tcl profile (e.g. the one proposed [by Stéphane in Decent Diaspora customers forum](https://3.basecamp.com/3671212/buckets/7351439/messages/2940917783#__recording_2959508002)); file name matters, so make sure to spell it correctly or make sure to set another file name using configuration (see below)
 3. restart DE1 app
 
 ## Usage:
@@ -18,7 +18,28 @@ This plugin helps to automate backflushing by running a dedicated pressure profi
 
 ## Configuration (optional):
 
-If you want to place the "Backflush" UI element in the top left corner of DSx main screen (for example because you have another plugin running, that needs the space just above the favourite cups) just change the first line from `set ::DSx_BF_alternative_ui 0` to `set ::DSx_BF_alternative_ui 1` and restart the DE1 app.
+DSx_Backflush provides different configuration options: 
+
+- you can place the "Backflush" UI element in the top left corner of DSx main screen (for example because you have another plugin running, that needs the space just above the favourite cups)
+- you can change the label of the UI element in idle and running state
+- you can chose the profile filename to use
+- you can bypass shot history 
+
+All of those configurtaions can be set using a text editor to change (some of) the first five lines in the plugin file. For example you can place a "Clean" UI element in the top left corner, that starts the Weber Spring Clean profile and saves it's run in shot history like this:
+
+    set ::DSx_BF_alternative_ui 1
+    set ::DSx_BF_label_idle "Clean"
+    set ::DSx_BF_label_active "Cleaning ..."
+    set ::DSx_BF_profile_filename "weber_spring_clean"
+    set ::DSx_BF_bypass_shot_history 0
+
+Default values are:
+
+    set ::DSx_BF_alternative_ui 0
+    set ::DSx_BF_label_idle "Backflush"
+    set ::DSx_BF_label_active "Backflushing ..."
+    set ::DSx_BF_profile_filename "Backflush"
+    set ::DSx_BF_bypass_shot_history 1
 
 ## Known issues:
 

@@ -14,7 +14,7 @@ This plugin helps to automate backflushing by running a dedicated pressure profi
 1. place blind basket into PF and lock it in group head
 2. press "Backflush" text above favorite cups
 3. on GHC press espresso button (non GHC machines should start directly but I could not test this)
-4. after the backflush is completed (or canceled) your former profile is reloaded
+4. after the backflush is completed, the UI element is touched again or the shot is canceled, your former profile is reloaded (and shot history is re-enabled if it was bypassed, see below)
 
 ## Configuration (optional):
 

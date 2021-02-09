@@ -4,7 +4,7 @@ set ::DSx_BF_label_active "Backflushing ..."
 set ::DSx_BF_profile_filename "Backflush"
 set ::DSx_BF_bypass_shot_history 1
 
-set version 1.3
+set version 1.3.1
 
 proc DSx_BF_start {} { 
     if {[file exists [homedir]/profiles/${::DSx_BF_profile_filename}.tcl] != 1} {
@@ -15,11 +15,7 @@ proc DSx_BF_start {} {
         } else {
             set ::DSx_BF_label $::DSx_BF_label_active
             
-            if { $::DSx_BF_bypass_shot_history == 1 } {
-                set ::settings(should_save_history) 0
-            }
-            
-            set ::DSx_BF_last_profile $::settings(profile_filename)    
+            set ::DSx_BF_last_profile $::settings(profile_filename)
             DSx_BF_load_profile ${::DSx_BF_profile_filename}
 
             start_espresso
@@ -28,13 +24,18 @@ proc DSx_BF_start {} {
 }
 
 proc DSx_BF_load_profile {profile_filename} {
-   set fn "[homedir]/profiles/${profile_filename}.tcl"
-   load_settings_vars $fn
-   save_settings_to_de1
+    set fn "[homedir]/profiles/${profile_filename}.tcl"
+    load_settings_vars $fn
+    save_settings_to_de1
 }
 
 proc DSx_BF_finished {unused_old_state unused_new_state} {
     DSx_BF_stop
+}
+proc DSx_BF_starting {unused_old_state unused_new_state} {
+    if { $::DSx_BF_label == $::DSx_BF_label_active && $::DSx_BF_bypass_shot_history == 1 } {
+        set ::settings(should_save_history) 0
+    }
 }
 
 proc DSx_BF_stop {} {
@@ -57,13 +58,12 @@ proc DSx_BF_stop {} {
 }
 
 after idle {after 0 {register_state_change_handler Espresso Idle DSx_BF_finished}}
+after idle {after 0 {register_state_change_handler Idle Espresso DSx_BF_starting}}
 
 proc DSx_BF_init_plugin args {
     set ::DSx_BF_last_profile {}
     set ::DSx_BF_save_history $::settings(should_save_history)
-    
     set ::DSx_BF_label $::DSx_BF_label_idle 
-    
     
     if {$::DSx_BF_alternative_ui == 1} {
         add_de1_variable "$::DSx_home_pages" 100 150 -text "" -font [DSx_font font 10] -fill $::DSx_settings(font_colour) -anchor "nw" -justify "left" -textvariable { $::DSx_BF_label }

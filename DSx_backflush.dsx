@@ -1,7 +1,7 @@
 set ::DSx_BF_alternative_ui 0
 set ::DSx_BF_label_idle "Backflush"
 set ::DSx_BF_label_active "Backflushing ..."
-set ::DSx_BF_profile_filename "Backflush"
+set ::DSx_BF_profile_filename "cleaning_forward_flush"
 set ::DSx_BF_bypass_shot_history 1
 
 set version 1.3.1

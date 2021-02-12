@@ -6,7 +6,7 @@ This plugin helps to automate backflushing by running a dedicated pressure profi
 ## Installation:
 
 1. save `DSx_backflush.dsx` file to skins/DSx/DSx_Plugins
-2. make sure, you have a Backflush.tcl profile (e.g. the one proposed [by Stéphane in Decent Diaspora customers forum](https://3.basecamp.com/3671212/buckets/7351439/messages/2940917783#__recording_2959508002)); file name matters, so make sure to spell it correctly or make sure to set another file name using configuration (see below)
+2. make sure, you have a cleaning_forward_flush.tcl profile (available from DE1 app version 1.34.10 or later) or create or download a flush profile, e.g. the one proposed [by Stéphane in Decent Diaspora customers forum](https://3.basecamp.com/3671212/buckets/7351439/messages/2940917783#__recording_2959508002)); file name matters, so make sure to spell it correctly or make sure to set another file name using configuration (see below)
 3. restart DE1 app
 
 ## Usage:
@@ -38,7 +38,7 @@ Default values are:
     set ::DSx_BF_alternative_ui 0
     set ::DSx_BF_label_idle "Backflush"
     set ::DSx_BF_label_active "Backflushing ..."
-    set ::DSx_BF_profile_filename "Backflush"
+    set ::DSx_BF_profile_filename "cleaning_forward_flush"
     set ::DSx_BF_bypass_shot_history 1
 
 ## Known issues:
